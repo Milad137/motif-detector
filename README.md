@@ -1,36 +1,42 @@
-# MotifDetection
-Exact Discovery of Time Series Motifs
+# Motif Detector
 
-Discovery of motifs in 1-D time series using modified method described by http://www.cs.ucr.edu/~mueen/pdf/EM.pdf
+[![Motif detector](https://miro.medium.com/v2/resize:fit:1100/format:webp/0*ho9boRhYdxOvqrJD.png)](http://alumni.cs.ucr.edu/~mueen/pdf/EM.pdf)
 
-  Inputs:
-    Time series: a python list or numpy array,
-    ML: Motif length,
-    K: Major Factor of Clustor Radius, greater than 1 and X,
-    X: Minor Factor of Clustor Radius, greater than 1
-    
-  Outputs:
-    Motifs: in a list of numpy arrays, 
-    BSFB: final euclidean distance calculated
+**Exact Discovery of Time Series Motifs**
 
-# How to use
-  Copy md.exe and MotifDetection.py to your project folder, and import MotifDetection.py to your main code.
- 
-# Example
-  Copy the whole folder and run jupyter notebook file produced as an example
+Discover recurring patterns (motifs) in 1-D time series using a modified version of the algorithm described in [Mueen et al., EMMA](http://www.cs.ucr.edu/~mueen/pdf/EM.pdf).
+It uses Pandas and returns motifs as a structured **DataFrame**.
 
-# Requirements
-  
-  1. Numpy
-    If not installed(windows):
-        pip install numpy
-        
-  2. Jupyter Notebook, to run example
-    If not installed(windows):
-        pip install jupyter
-     
-  3. Plotly, to run example
-    If not installed(windows):
-        pip install plotly       
-      
-       
+## Features
+
+* Detect motifs in a 1-D time series (`pandas.Series`).
+* Cross-platform support: Windows, Linux, macOS.
+* Handles permissions and prompts installation for `wine` on non-Windows systems.
+* Returns motifs in a **hierarchical DataFrame** with groupings and motif indices.
+
+## Input Parameters
+
+| Parameter      | Type        | Description                                            |
+| -------------- | ----------- | ------------------------------------------------------ |
+| `data`         | `pd.Series` | One-dimensional time series input.                     |
+| `motif_length` | `int`       | Length of each motif subsequence.                      |
+| `major_factor` | `float`     | Major factor of cluster radius (>1 and >minor_factor). |
+| `minor_factor` | `float`     | Minor factor of cluster radius (>1).                   |
+
+## Output
+
+| Output   | Type           | Description                                                                                                         |
+|----------|----------------|---------------------------------------------------------------------------------------------------------------------|
+| `motifs` | `pd.DataFrame` | DataFrame containing all discovered motifs. Columns are hierarchical: **Group**, **Number**, **Id**, and **value**. |
+| `bsfb`   | `float`        | Final Euclidean distance (best-so-far break) computed by the algorithm.                                             |
+
+**DataFrame structure example**:
+
+```
+Group | Number | Id | value
+------|--------|----|------
+0     | 0      | 0  | 1.23
+0     | 0      | 1  | 1.45
+0     | 1      | 0  | 2.01
+...
+```
